@@ -1,12 +1,25 @@
 {
   "name": "vue-yellow-marker",
-  "version": "0.1.1",
-  "private": true,
+  "version": "0.0.1",
+  "description": "Adds a text selection and highlighting functionality to your Vue components",
+  "main": "index.js",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kognity/vue-yellow-marker.git"
+  },
+  "keywords": [
+    "Vue",
+    "highlight"
+  ],
+  "author": "Kognity",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Kognity/vue-yellow-marker/issues"
+  },
+  "homepage": "https://github.com/Kognity/vue-yellow-marker#readme",
   "dependencies": {
     "dom-anchor-text-quote": "4.0.2",
     "lodash.debounce": "4.0.8",
@@ -45,7 +58,5 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ],
-  "keywords": [],
-  "description": ""
+  ]
 }
