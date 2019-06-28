@@ -10,7 +10,8 @@ npm install kognity/vue-yellow-marker --save
 ## Usage
 
 ```javascript
-import { printMsg } from "vue-yellow-marker";
+import { printMsg } from "@kognity/vue-yellow-marker";
+printMsg();
 ```
 
 ## License
