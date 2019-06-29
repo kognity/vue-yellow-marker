@@ -1,12 +1,10 @@
 {
   "name": "@kognity/vue-yellow-marker",
-  "version": "0.0.5",
+  "version": "0.1.2",
   "description": "Adds a text selection and highlighting functionality to your Vue components",
   "main": "./dist/vue-yellow-marker.umd.min.js",
   "scripts": {
-    "build": "babel src -d dist",
-    "package": "vue-cli-service build --target lib --name vue-yellow-marker src/highlight-mixin.js",
-    "lint": "vue-cli-service lint",
+    "build": "vue-cli-service build --target lib --name vue-yellow-marker src/highlight-mixin.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,7 +27,7 @@
     "v-click-outside": "2.1.3"
   },
   "peerDependencies": {
-    "vue": "^2.0.3"
+    "vue": "^2.3.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.4.0",

@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { toRange, fromRange } from "dom-anchor-text-quote";
+import { toRange } from "dom-anchor-text-quote";
 import highlight from "./utils/highlight";
 import _ from "lodash";
 
@@ -26,12 +26,12 @@ function getLatestNode(selection) {
     }
   } else if (focusBottom > anchorBottom) {
     node = focusNode;
-    offset = focusOffset;       
+    offset = focusOffset;
   } else {
     node = anchorNode;
     offset = anchorOffset;
   }
-  return {node, offset};
+  return { node, offset };
 }
 
 const HighlightMixin = {
@@ -40,39 +40,55 @@ const HighlightMixin = {
       hlRange: null,
       hlHighlightMenu: null,
       hlSelectionMenu: null,
+      hlMenuHookParent: null,
       hlConfig: {
         debounceDelay: 200,
-        menuComponent: null,
+        menuComponent: null
       }
     };
   },
-  mounted: function () {
+  mounted: function() {
     document.addEventListener(
       "selectionchange",
       _.debounce(this.selectionChanged, this.hlConfig.debounceDelay)
     );
   },
   methods: {
+    selectionAllowed() {
+      return true;
+    },
     selectionChanged(e) {
       e.preventDefault();
       e.stopPropagation();
       const selection = window.getSelection();
-      const { focusNode } = selection; // baseNode does not work in FF
+      const { focusNode, anchorNode } = selection;
       if (
         selection.isCollapsed ||
-        !this.$el.contains(focusNode)
+        !anchorNode ||
+        !this.$el.contains(anchorNode) ||
+        !focusNode ||
+        !this.$el.contains(focusNode) ||
+        !this.selectionAllowed(selection)
       ) {
         // Do not show menu if selection is collapsed or outside element
         this.removeSelectionMenu();
+        console.log('Selection not allowed');
         return;
       }
       this.hlRange = selection.getRangeAt(0);
       this.createSelectionMenu(selection);
     },
     // Highlights text and specifies a click handler
-    highlight({prefix, suffix, exact}, clickHandler, props, customObject = {}){
+    highlight(
+      { prefix, suffix, exact },
+      clickHandler,
+      props,
+      customObject = {}
+    ) {
       if (this.$el === undefined) {
-        throw Error('highlight: this.$el is undefined. Make sure the component is mounted.')
+        throw Error(
+          "highlight: this.$el is undefined. Make sure the component is mounted."
+        );
       }
       const range = toRange(this.$el, {
         prefix,
@@ -81,11 +97,19 @@ const HighlightMixin = {
       });
       return highlight(this.$el, customObject, clickHandler, props, range);
     },
-    highlightSelection(clickHandler, props, customObject = {}){
+    highlightSelection(clickHandler, props, customObject = {}) {
       if (this.$el === undefined) {
-        throw Error('highlight: this.$el is undefined. Make sure the component is mounted.')
+        throw Error(
+          "highlight: this.$el is undefined. Make sure the component is mounted."
+        );
       }
-      return highlight(this.$el, customObject, clickHandler, props, this.hlRange);
+      return highlight(
+        this.$el,
+        customObject,
+        clickHandler,
+        props,
+        this.hlRange
+      );
     },
     removeMenu() {
       this.removeSelectionMenu();
@@ -96,6 +120,9 @@ const HighlightMixin = {
         this.hlSelectionMenu.$destroy();
         this.hlSelectionMenu.$el.remove();
         this.hlSelectionMenu = null;
+        if (this.hlMenuHookParent) {
+          this.hlMenuHookParent.normalize();
+        }
       }
     },
     removeHighlightMenu() {
@@ -108,7 +135,8 @@ const HighlightMixin = {
     removeSelection() {
       window.getSelection().removeAllRanges();
     },
-    createMenu(menuComponent, nodes, actions, props = {}) {  
+    createMenu(menuComponent, actions, props = {}) {
+      console.log('Creating menu component');
       const ComponentBuilder = Vue.extend(Object.assign(menuComponent));
       const menu = new ComponentBuilder({ propsData: props });
       menu.$mount();
@@ -117,26 +145,28 @@ const HighlightMixin = {
       });
       return menu;
     },
-    createNamedMenu(name, nodes) {
+    createHighlightMenu(nodes) {
       this.removeMenu();
-      const menu = this.hlConfig.menus[name];
+      const menu = this.hlConfig.menus.highlight;
       const actions = menu.actions;
-      this.hlHighlightMenu = this.createMenu(menu.component, nodes, actions);
+      this.hlHighlightMenu = this.createMenu(menu.component, actions);
       const lastNode = nodes.slice(-1).pop();
       lastNode.parentElement.appendChild(this.hlHighlightMenu.$el);
     },
     createSelectionMenu(selection) {
       this.removeMenu();
-      const menu = this.hlConfig.menus[this.hlConfig.selectionMenu];
+      const menu = this.hlConfig.menus.selection;
+      console.log('Creating menu', menu);
       const actions = menu.actions;
-      // Add a range by the end of the selection 
-      const {node, offset} = getLatestNode(selection);
+      // Add a range by the end of the selection
+      const { node, offset } = getLatestNode(selection);
       const range = new Range();
       range.setStart(node, offset);
       range.setEnd(node, offset);
-
-      this.hlSelectionMenu = this.createMenu(menu.component, [node], actions);
+      this.hlMenuHookParent = node.parentElement;
+      this.hlSelectionMenu = this.createMenu(menu.component, actions);
       range.insertNode(this.hlSelectionMenu.$el);
+      console.log('Inserted menu into DOM');
     }
   }
 };

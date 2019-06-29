@@ -10,7 +10,7 @@ npm install @kognity/vue-yellow-marker --save
 ## Usage
 
 ```javascript
-import { HighlightMixin } from "@kognity/vue-yellow-marker";
+import HighlightMixin from "@kognity/vue-yellow-marker";
 
 export default {
   name: "MyComponent",
@@ -21,6 +21,7 @@ export default {
   ...
 }
 ```
+See [live examples in codesandbox](https://codesandbox.io/s/vue-yellow-marker-examples-1897o)
 
 ## License
 
