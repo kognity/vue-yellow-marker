@@ -60,6 +60,7 @@ const HighlightMixin = {
     selectionChanged(e) {
       e.preventDefault();
       e.stopPropagation();
+      console.log('Selection changed event', e);
       const selection = window.getSelection();
       const { focusNode, anchorNode } = selection;
       if (
