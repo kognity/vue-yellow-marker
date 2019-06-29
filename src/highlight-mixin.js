@@ -60,7 +60,6 @@ const HighlightMixin = {
     selectionChanged(e) {
       e.preventDefault();
       e.stopPropagation();
-      console.log('Selection changed event', e);
       const selection = window.getSelection();
       const { focusNode, anchorNode } = selection;
       if (
@@ -73,7 +72,6 @@ const HighlightMixin = {
       ) {
         // Do not show menu if selection is collapsed or outside element
         this.removeSelectionMenu();
-        console.log('Selection not allowed');
         return;
       }
       this.hlRange = selection.getRangeAt(0);
@@ -137,7 +135,6 @@ const HighlightMixin = {
       window.getSelection().removeAllRanges();
     },
     createMenu(menuComponent, actions, props = {}) {
-      console.log('Creating menu component');
       const ComponentBuilder = Vue.extend(Object.assign(menuComponent));
       const menu = new ComponentBuilder({ propsData: props });
       menu.$mount();
@@ -157,7 +154,6 @@ const HighlightMixin = {
     createSelectionMenu(selection) {
       this.removeMenu();
       const menu = this.hlConfig.menus.selection;
-      console.log('Creating menu', menu);
       const actions = menu.actions;
       // Add a range by the end of the selection
       const { node, offset } = getLatestNode(selection);
@@ -167,7 +163,6 @@ const HighlightMixin = {
       this.hlMenuHookParent = node.parentElement;
       this.hlSelectionMenu = this.createMenu(menu.component, actions);
       range.insertNode(this.hlSelectionMenu.$el);
-      console.log('Inserted menu into DOM');
     }
   }
 };
