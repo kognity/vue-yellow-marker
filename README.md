@@ -30,7 +30,7 @@ export default {
 
 ## Live demo
 
-See [live examples in codesandbox](https://codesandbox.io/s/vue-yellow-marker-examples-1897o)
+See [live examples in codesandbox](https://codesandbox.io/s/github/harabchuk/vue-yellow-marker-examples/tree/master/)
 
 ## License
 
