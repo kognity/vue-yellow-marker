@@ -3,7 +3,7 @@ Adds a text selection and highlighting functionality to your VUE components.
 
 [![Build Status](https://travis-ci.org/Kognity/vue-yellow-marker.svg?branch=master)](https://travis-ci.org/Kognity/vue-yellow-marker)
 
-![Example](doc/vue-yellow-marker-screen.png)
+![Example](https://github.com/Kognity/vue-yellow-marker/raw/master/doc/vue-yellow-marker-screen.png)
 
 ## Installation
 
