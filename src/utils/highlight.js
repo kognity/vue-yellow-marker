@@ -4,16 +4,12 @@ import { fromRange } from "dom-anchor-text-quote";
 function getSelectedRange() {
   const selection = window.getSelection();
   if (selection.focusNode === null) {
-    // console.log('focus node null');
     return null;
   }
   const range = selection.getRangeAt(0);
-  console.log('range', range, selection);
   if (!range ) {
-    // console.log('range null', range);
     return null;
   }
-  // console.log('range', range);
   return range;
 }
 
