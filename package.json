@@ -1,10 +1,11 @@
 {
   "name": "@kognity/vue-yellow-marker",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Adds a text selection and highlighting functionality to your Vue components",
   "main": "./dist/vue-yellow-marker.umd.min.js",
   "scripts": {
     "build": "vue-cli-service build --target lib --name vue-yellow-marker src/index.js",
+    "prepublishOnly": "npm version patch && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

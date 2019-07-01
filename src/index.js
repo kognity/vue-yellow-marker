@@ -5,3 +5,8 @@ export default {
   HighlightMixin,
   KogContextMenu,
 };
+
+export {
+  HighlightMixin,
+  KogContextMenu,
+};
