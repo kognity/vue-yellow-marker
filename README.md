@@ -21,6 +21,9 @@ export default {
   ...
 }
 ```
+
+## Demo
+
 See [live examples in codesandbox](https://codesandbox.io/s/vue-yellow-marker-examples-1897o)
 
 ## License
