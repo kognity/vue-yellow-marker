@@ -1,5 +1,5 @@
 import Vue from "vue";
-import KogHighlight from "../components/KogHighlight";
+import Highlight from "../components/Highlight";
 
 var highlightRange = (function() {
   // Wrap each text node in a given DOM Range with a <span class=[highLightClass]>.
@@ -201,7 +201,7 @@ var highlightRange = (function() {
   // Replace [node] with <span class=[highlightClass]>[node]</span>
   function highlightNode(node, selectHandler, context, props) {
     // Create a highlight
-    let ComponentBuilder = Vue.extend(KogHighlight);
+    let ComponentBuilder = Vue.extend(Highlight);
     var highlight = new ComponentBuilder({
       propsData: {
         context,

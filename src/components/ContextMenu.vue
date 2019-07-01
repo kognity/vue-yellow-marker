@@ -1,9 +1,9 @@
 <template>
-  <div class="KogContextMenu">
-    <div class="KogContextMenu-container">
-      <div class="KogContextMenu-content" @mouseup="$event.stopPropagation()">
-        <div class="KogContextMenu-tip"/>
-        <div class="KogContextMenu-menuBody">
+  <div class="ContextMenu">
+    <div class="ContextMenu-container">
+      <div class="ContextMenu-content" @mouseup="$event.stopPropagation()">
+        <div class="ContextMenu-tip"/>
+        <div class="ContextMenu-menuBody">
           <slot name="menuBody"/>
         </div>
       </div>
@@ -13,18 +13,18 @@
 
 <script>
 export default {
-  name: "KogContextMenu"
+  name: "ContextMenu"
 };
 </script>
 
 <style scoped>
-.KogContextMenu {
+.ContextMenu {
   display: inline;
   position: relative;
   user-select: none;
 }
 
-.KogContextMenu-container {
+.ContextMenu-container {
   height: 0;
   left: 0;
   position: absolute;
@@ -33,14 +33,14 @@ export default {
   user-select: none;
 }
 
-.KogContextMenu-content {
+.ContextMenu-content {
   left: -50%;
   position: relative;
   user-select: none;
   white-space: nowrap;
 }
 
-.KogContextMenu-tip {
+.ContextMenu-tip {
   border-bottom: 8px solid black;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
@@ -49,7 +49,7 @@ export default {
   width: 0;
 }
 
-.KogContextMenu-menuBody {
+.ContextMenu-menuBody {
   background-color: black;
   border-radius: 3px;
   color: white;

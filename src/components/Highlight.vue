@@ -1,6 +1,6 @@
 <template>
   <span
-    class="KogHighlight"
+    class="Highlight"
     :style="{'background-color': hlColor}"
     @mouseup="select($event)"
     @touchend="select($event)"
@@ -8,7 +8,7 @@
 </template>
 <script>
 export default {
-  name: "KogHighlight",
+  name: "Highlight",
   props: {
     selectHandler: {
       type: Function,
@@ -39,7 +39,7 @@ export default {
 };
 </script>
 <style scoped>
-.KogHighlight {
+.Highlight {
   position: relative;
   cursor: pointer;
 }

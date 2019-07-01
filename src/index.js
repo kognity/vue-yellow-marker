@@ -1,12 +1,12 @@
 import HighlightMixin from './highlight-mixin'
-import KogContextMenu from './components/KogContextMenu'
+import ContextMenu from './components/ContextMenu'
 
 export default {
   HighlightMixin,
-  KogContextMenu,
+  ContextMenu,
 };
 
 export {
   HighlightMixin,
-  KogContextMenu,
+  ContextMenu,
 };
