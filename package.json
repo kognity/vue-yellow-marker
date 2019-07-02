@@ -1,12 +1,15 @@
 {
   "name": "@kognity/vue-yellow-marker",
-  "version": "0.2.15",
+  "version": "0.2.16",
   "description": "Adds a text selection and highlighting functionality to your Vue components",
   "main": "./dist/vue-yellow-marker.umd.min.js",
   "scripts": {
     "build": "vue-cli-service build --target lib --name vue-yellow-marker src/index.js",
     "prepublishOnly": "npm version patch && npm run build",
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "serve": "vue-cli-service serve",
+    "lint": "vue-cli-service lint",
+    "ci": "npm run lint && npm run build && npm run test"
   },
   "repository": {
     "type": "git",
@@ -28,17 +31,22 @@
     "v-click-outside": "2.1.3"
   },
   "peerDependencies": {
-    "vue": "^2.3.1"
+    "core-js": "^2.6.5",
+    "vue": "^2.6.10"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.4.0",
-    "@vue/cli-service": "^3.4.0",
     "lint-staged": "^8.1.0",
     "node-sass": "^4.9.0",
     "sass": "^1.16.0",
     "sass-loader": "^7.0.1",
     "vue": "^2.6.6",
-    "vue-template-compiler": "^2.6.6"
+    "@vue/cli-plugin-babel": "^3.8.0",
+    "@vue/cli-plugin-eslint": "^3.8.0",
+    "@vue/cli-service": "^3.8.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {
     "root": true,
