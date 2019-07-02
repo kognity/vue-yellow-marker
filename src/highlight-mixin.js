@@ -52,8 +52,29 @@ const HighlightMixin = {
       "selectionchange",
       _.debounce(this.selectionChanged, this.hlConfig.debounceDelay)
     );
+    document.addEventListener(
+      "mousedown",
+      this.clickOutsideHandler,
+    );
+    document.addEventListener(
+      "touchstart",
+      this.clickOutsideHandler,
+    );
   },
   methods: {
+    clickOutsideHandler(event) {
+      if (!this.hlHighlightMenu) {
+        return;
+      }
+      if (event.target && event.target.classList.contains('Highlight')) {
+        return;
+      }
+      const element = this.hlHighlightMenu.$el;
+      const content = element.getElementsByClassName('ContextMenu-content')[0];
+      if (event.target !== content && !content.contains(event.target)){
+        this.removeHighlightMenu();
+      }
+    },
     selectionAllowed() {
       return true;
     },
