@@ -148,12 +148,12 @@ const HighlightMixin = {
       const tip = element.getElementsByClassName('ContextMenu-tip')[0];
       const rect = content.getBoundingClientRect();
       if (rect.left < 0) {
-        const offset = -rect.left;
+        const offset = -rect.left + 1;
         element.style.left = `${offset}px`;
         const tipLeft = rect.width / 2 - offset - 8;
         tip.style.marginLeft = `${tipLeft}px`;
       } else if(rect.right > window.innerWidth) {
-        const offset = (rect.right - window.innerWidth) * 2;
+        const offset = (rect.right - window.innerWidth) * 2 + 2;
         content.style.marginLeft = `-${offset}px`;
         const tipLeft = rect.width / 2 + offset / 2 - 8;
         tip.style.marginLeft = `${tipLeft}px`;
@@ -180,7 +180,9 @@ const HighlightMixin = {
       range.setEnd(node, offset);
       this.hlMenuHookParent = node.parentElement;
       this.hlSelectionMenu = this.createMenu(menu.component, actions);
+      const menuElement = this.hlSelectionMenu.$el;
       range.insertNode(this.hlSelectionMenu.$el);
+      this.adjustMenuPosition(menuElement);
     }
   }
 };
