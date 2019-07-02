@@ -33,7 +33,7 @@ export default {
   methods: {
     select(event) {
       event.stopPropagation();
-      this.selectHandler(event, this.context);
+      this.selectHandler(event, this.context, this);
     }
   }
 };

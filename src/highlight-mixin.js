@@ -143,13 +143,31 @@ const HighlightMixin = {
       });
       return menu;
     },
+    adjustMenuPosition(element) {
+      const content = element.getElementsByClassName('ContextMenu-content')[0];
+      const tip = element.getElementsByClassName('ContextMenu-tip')[0];
+      const rect = content.getBoundingClientRect();
+      if (rect.left < 0) {
+        const offset = -rect.left;
+        element.style.left = `${offset}px`;
+        const tipLeft = rect.width / 2 - offset - 8;
+        tip.style.marginLeft = `${tipLeft}px`;
+      } else if(rect.right > window.innerWidth) {
+        const offset = (rect.right - window.innerWidth) * 2;
+        content.style.marginLeft = `-${offset}px`;
+        const tipLeft = rect.width / 2 + offset / 2 - 8;
+        tip.style.marginLeft = `${tipLeft}px`;
+      }
+    },
     createHighlightMenu(nodes) {
       this.removeMenu();
       const menu = this.hlConfig.menus.highlight;
       const actions = menu.actions;
       this.hlHighlightMenu = this.createMenu(menu.component, actions);
+      const menuElement = this.hlHighlightMenu.$el;
       const lastNode = nodes.slice(-1).pop();
-      lastNode.parentElement.appendChild(this.hlHighlightMenu.$el);
+      lastNode.parentElement.appendChild(menuElement);
+      this.adjustMenuPosition(menuElement);
     },
     createSelectionMenu(selection) {
       this.removeMenu();
