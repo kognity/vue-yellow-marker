@@ -41,7 +41,7 @@ const HighlightMixin = {
       hlHighlightMenu: null,
       hlSelectionMenu: null,
       hlMenuHookParent: null,
-      hlConfig: {
+      ymConfig: {
         debounceDelay: 200,
         menuComponent: null
       }
@@ -50,19 +50,19 @@ const HighlightMixin = {
   mounted: function() {
     document.addEventListener(
       "selectionchange",
-      _.debounce(this.selectionChanged, this.hlConfig.debounceDelay)
+      _.debounce(this.ymSelectionChanged, this.ymConfig.debounceDelay)
     );
     document.addEventListener(
       "mousedown",
-      this.clickOutsideHandler,
+      this.ymClickOutsideHandler,
     );
     document.addEventListener(
       "touchstart",
-      this.clickOutsideHandler,
+      this.ymClickOutsideHandler,
     );
   },
   methods: {
-    clickOutsideHandler(event) {
+    ymClickOutsideHandler(event) {
       if (!this.hlHighlightMenu) {
         return;
       }
@@ -72,13 +72,13 @@ const HighlightMixin = {
       const element = this.hlHighlightMenu.$el;
       const content = element.getElementsByClassName('ContextMenu-content')[0];
       if (event.target !== content && !content.contains(event.target)){
-        this.removeHighlightMenu();
+        this.ymRemoveHighlightMenu();
       }
     },
-    selectionAllowed() {
+    ymSelectionAllowed() {
       return true;
     },
-    selectionChanged(e) {
+    ymSelectionChanged(e) {
       e.preventDefault();
       e.stopPropagation();
       const selection = window.getSelection();
@@ -89,17 +89,17 @@ const HighlightMixin = {
         !this.$el.contains(anchorNode) ||
         !focusNode ||
         !this.$el.contains(focusNode) ||
-        !this.selectionAllowed(selection)
+        !this.ymSelectionAllowed(selection)
       ) {
         // Do not show menu if selection is collapsed or outside element
-        this.removeSelectionMenu();
+        this.ymRemoveSelectionMenu();
         return;
       }
       this.hlRange = selection.getRangeAt(0);
-      this.createSelectionMenu(selection);
+      this.ymCreateSelectionMenu(selection);
     },
     // Highlights text and specifies a click handler
-    highlight(
+    ymHighlight(
       { prefix, suffix, exact },
       clickHandler,
       props,
@@ -117,7 +117,7 @@ const HighlightMixin = {
       });
       return highlight(this.$el, customObject, clickHandler, props, range);
     },
-    highlightSelection(clickHandler, props, customObject = {}) {
+    ymHighlightSelection(clickHandler, props, customObject = {}) {
       if (this.$el === undefined) {
         throw Error(
           "highlight: this.$el is undefined. Make sure the component is mounted."
@@ -131,11 +131,11 @@ const HighlightMixin = {
         this.hlRange
       );
     },
-    removeMenu() {
-      this.removeSelectionMenu();
-      this.removeHighlightMenu();
+    ymRemoveMenu() {
+      this.ymRemoveSelectionMenu();
+      this.ymRemoveHighlightMenu();
     },
-    removeSelectionMenu() {
+    ymRemoveSelectionMenu() {
       if (this.hlSelectionMenu) {
         this.hlSelectionMenu.$destroy();
         this.hlSelectionMenu.$el.remove();
@@ -145,17 +145,17 @@ const HighlightMixin = {
         }
       }
     },
-    removeHighlightMenu() {
+    ymRemoveHighlightMenu() {
       if (this.hlHighlightMenu) {
         this.hlHighlightMenu.$destroy();
         this.hlHighlightMenu.$el.remove();
         this.hlHighlightMenu = null;
       }
     },
-    removeSelection() {
+    ymRemoveSelection() {
       window.getSelection().removeAllRanges();
     },
-    createMenu(menuComponent, actions, props = {}) {
+    ymCreateMenu(menuComponent, actions, props = {}) {
       const ComponentBuilder = Vue.extend(Object.assign(menuComponent));
       const menu = new ComponentBuilder({ propsData: props });
       menu.$mount();
@@ -164,7 +164,7 @@ const HighlightMixin = {
       });
       return menu;
     },
-    adjustMenuPosition(element) {
+    ymAdjustMenuPosition(element) {
       const content = element.getElementsByClassName('ContextMenu-content')[0];
       const tip = element.getElementsByClassName('ContextMenu-tip')[0];
       const rect = content.getBoundingClientRect();
@@ -180,19 +180,19 @@ const HighlightMixin = {
         tip.style.marginLeft = `${tipLeft}px`;
       }
     },
-    createHighlightMenu(nodes) {
-      this.removeMenu();
-      const menu = this.hlConfig.menus.highlight;
+    ymCreateHighlightMenu(nodes) {
+      this.ymRemoveMenu();
+      const menu = this.ymConfig.menus.highlight;
       const actions = menu.actions;
-      this.hlHighlightMenu = this.createMenu(menu.component, actions);
+      this.hlHighlightMenu = this.ymCreateMenu(menu.component, actions);
       const menuElement = this.hlHighlightMenu.$el;
       const lastNode = nodes.slice(-1).pop();
       lastNode.parentElement.appendChild(menuElement);
-      this.adjustMenuPosition(menuElement);
+      this.ymAdjustMenuPosition(menuElement);
     },
-    createSelectionMenu(selection) {
-      this.removeMenu();
-      const menu = this.hlConfig.menus.selection;
+    ymCreateSelectionMenu(selection) {
+      this.ymRemoveMenu();
+      const menu = this.ymConfig.menus.selection;
       const actions = menu.actions;
       // Add a range by the end of the selection
       const { node, offset } = getLatestNode(selection);
@@ -200,10 +200,10 @@ const HighlightMixin = {
       range.setStart(node, offset);
       range.setEnd(node, offset);
       this.hlMenuHookParent = node.parentElement;
-      this.hlSelectionMenu = this.createMenu(menu.component, actions);
+      this.hlSelectionMenu = this.ymCreateMenu(menu.component, actions);
       const menuElement = this.hlSelectionMenu.$el;
       range.insertNode(this.hlSelectionMenu.$el);
-      this.adjustMenuPosition(menuElement);
+      this.ymAdjustMenuPosition(menuElement);
     }
   }
 };

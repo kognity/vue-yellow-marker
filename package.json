@@ -1,8 +1,8 @@
 {
   "name": "@kognity/vue-yellow-marker",
-  "version": "2.2.20",
+  "version": "2.3.1",
   "description": "Adds a text selection and highlighting functionality to your Vue components",
-  "main": "./dist/vue-yellow-marker.umd.min.js",
+  "main": "./src/index.js",
   "scripts": {
     "build": "vue-cli-service build --target lib --name vue-yellow-marker src/index.js",
     "prepublishOnly": "npm version patch && npm run build",
