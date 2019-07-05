@@ -9,7 +9,7 @@ var highlightRange = (function() {
   // Parameters:
   // - rangeObject: a Range whose start and end containers are text nodes.
   // - highlightClass: the CSS class the text pieces in the range should get, defaults to 'highlighted-range'.
-  function highlightRange(rangeObject, customObject, selectHandler, props) {
+  function highlightRange(rangeObject, customObject, selectHandler, component, props) {
     // Ignore range if empty.
     if (rangeObject.collapsed) {
       return;
@@ -31,7 +31,7 @@ var highlightRange = (function() {
       nodes,
     };
     nodes.forEach(node => {
-      highlights.push(highlightNode(node, selectHandler, context, props));
+      highlights.push(highlightNode(node, selectHandler, context, component, props));
     });
 
     // The rangeObject gets messed up by our DOM changes. Be kind and restore.
@@ -199,9 +199,9 @@ var highlightRange = (function() {
   }
 
   // Replace [node] with <span class=[highlightClass]>[node]</span>
-  function highlightNode(node, selectHandler, context, props) {
+  function highlightNode(node, selectHandler, context, component, props) {
     // Create a highlight
-    let ComponentBuilder = Vue.extend(Highlight);
+    let ComponentBuilder = Vue.extend(component);
     var highlight = new ComponentBuilder({
       propsData: {
         context,

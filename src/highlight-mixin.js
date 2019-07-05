@@ -1,6 +1,7 @@
 import Vue from "vue";
 import { toRange } from "dom-anchor-text-quote";
 import highlight from "./utils/highlight";
+import Highlight from "./components/Highlight";
 import _ from "lodash";
 
 function findPos(node) {
@@ -43,7 +44,10 @@ const HighlightMixin = {
       hlMenuHookParent: null,
       ymConfig: {
         debounceDelay: 200,
-        menuComponent: null
+        menuComponent: null,
+        highlight: {
+          component: Highlight,
+        }
       }
     };
   },
@@ -115,7 +119,14 @@ const HighlightMixin = {
         suffix,
         exact
       });
-      return highlight(this.$el, customObject, clickHandler, props, range);
+      return highlight(
+        this.$el,
+        customObject,
+        clickHandler,
+        this.ymConfig.highlight.component,
+        props,
+        range
+      );
     },
     ymHighlightSelection(clickHandler, props, customObject = {}) {
       if (this.$el === undefined) {
@@ -127,6 +138,7 @@ const HighlightMixin = {
         this.$el,
         customObject,
         clickHandler,
+        this.ymConfig.highlight.component,
         props,
         this.hlRange
       );

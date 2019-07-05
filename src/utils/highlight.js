@@ -17,6 +17,7 @@ export default function highlight(
   element,
   customObject,
   selectHandler,
+  component,
   props,
   range = getSelectedRange()
 ) {
@@ -25,7 +26,8 @@ export default function highlight(
       range,
       customObject,
       selectHandler,
-      props,
+      component,
+      props
     );
     return {
       cleanupMethod,
