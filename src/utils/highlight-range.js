@@ -1,5 +1,4 @@
 import Vue from "vue";
-import Highlight from "../components/Highlight";
 
 var highlightRange = (function() {
   // Wrap each text node in a given DOM Range with a <span class=[highLightClass]>.
