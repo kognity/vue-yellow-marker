@@ -167,9 +167,12 @@ const HighlightMixin = {
     ymRemoveSelection() {
       window.getSelection().removeAllRanges();
     },
-    ymCreateMenu(menuComponent, actions, props = {}) {
+    ymCreateMenuComponent(menuComponent, props) {
       const ComponentBuilder = Vue.extend(Object.assign(menuComponent));
-      const menu = new ComponentBuilder({ propsData: props });
+      return new ComponentBuilder({ propsData: props });
+    },
+    ymCreateMenu(menuComponent, actions, props = {}) {
+      const menu = this.ymCreateMenuComponent(menuComponent, props);
       menu.$mount();
       Object.keys(actions).forEach(eventName => {
         menu.$on(eventName, actions[eventName]);
