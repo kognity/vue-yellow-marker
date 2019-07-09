@@ -1,6 +1,6 @@
 {
   "name": "@kognity/vue-yellow-marker",
-  "version": "2.4.6",
+  "version": "2.4.7",
   "description": "Adds a text selection and highlighting functionality to your Vue components",
   "main": "./dist/vue-yellow-marker.umd.min.js",
   "scripts": {
