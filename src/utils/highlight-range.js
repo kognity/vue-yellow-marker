@@ -45,11 +45,6 @@ var highlightRange = (function() {
 
     // Return a function that cleans up the highlights.
     function cleanupHighlights() {
-      // Remember range details to restore it later.
-      var startContainer = rangeObject.startContainer;
-      var startOffset = rangeObject.startOffset;
-      var endContainer = rangeObject.endContainer;
-      var endOffset = rangeObject.endOffset;
 
       // Remove each of the created highlights.
       for (var highlightIdx in highlights) {

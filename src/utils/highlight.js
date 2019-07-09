@@ -1,7 +1,7 @@
 import highlightRange from "./highlight-range";
 import { fromRange } from "dom-anchor-text-quote";
 
-function getSelectedRange() {
+export function getSelectedRange() {
   const selection = window.getSelection();
   if (selection.focusNode === null) {
     return null;

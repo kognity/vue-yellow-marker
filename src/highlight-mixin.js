@@ -1,6 +1,6 @@
 import Vue from "vue";
-import { toRange } from "dom-anchor-text-quote";
-import highlight from "./utils/highlight";
+import { toRange, fromRange } from "dom-anchor-text-quote";
+import highlight, { getSelectedRange } from "./utils/highlight";
 import Highlight from "./components/Highlight";
 import _ from "lodash";
 
@@ -142,6 +142,13 @@ const HighlightMixin = {
         props,
         this.hlRange
       );
+    },
+    ymGetSelectionTextQuote() {
+      const range = getSelectedRange();
+      if (range) {
+        return fromRange(this.$el, range);
+      }
+      return null;
     },
     ymRemoveMenu() {
       this.ymRemoveSelectionMenu();
