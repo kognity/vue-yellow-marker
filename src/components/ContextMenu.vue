@@ -19,6 +19,7 @@ export default {
 
 <style scoped>
 .ContextMenu {
+  cursor: default;
   display: inline;
   position: relative;
   user-select: none;
