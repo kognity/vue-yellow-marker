@@ -114,6 +114,9 @@ const HighlightMixin = {
           "highlight: this.$el is undefined. Make sure the component is mounted."
         );
       }
+      if (!exact) {
+        return;
+      }
       const range = toRange(this.$el, {
         prefix,
         suffix,
