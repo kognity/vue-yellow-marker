@@ -206,32 +206,38 @@ const HighlightMixin = {
       }
     },
     ymCreateHighlightMenu(nodes) {
-      this.ymRemoveMenu();
       const menu = this.ymConfig.menus.highlight;
       const actions = menu.actions;
       const props = menu.props;
-      this.hlHighlightMenu = this.ymCreateMenu(menu.component, actions, props);
+      this.ymAddMenuToHighlight(nodes, menu.component, actions, props);
+    },
+    ymCreateSelectionMenu(selection) {
+      const menu = this.ymConfig.menus.selection;
+      const actions = menu.actions;
+      const props = menu.props;
+      this.ymAddMenuToSelection(selection, menu.component, actions, props);
+    },
+    ymAddMenuToHighlight(nodes, component, actions = {}, props = {}) {
+      this.ymRemoveMenu();
+      this.hlHighlightMenu = this.ymCreateMenu(component, actions, props);
       const menuElement = this.hlHighlightMenu.$el;
       const lastNode = nodes.slice(-1).pop();
       lastNode.parentElement.appendChild(menuElement);
       this.ymAdjustMenuPosition(menuElement);
     },
-    ymCreateSelectionMenu(selection) {
+    ymAddMenuToSelection(selection, component, actions = {}, props = {}) {
       this.ymRemoveMenu();
-      const menu = this.ymConfig.menus.selection;
-      const actions = menu.actions;
-      const props = menu.props;
       // Add a range by the end of the selection
       const { node, offset } = getLatestNode(selection);
       const range = new Range();
       range.setStart(node, offset);
       range.setEnd(node, offset);
       this.hlMenuHookParent = node.parentElement;
-      this.hlSelectionMenu = this.ymCreateMenu(menu.component, actions, props);
+      this.hlSelectionMenu = this.ymCreateMenu(component, actions, props);
       const menuElement = this.hlSelectionMenu.$el;
       range.insertNode(this.hlSelectionMenu.$el);
       this.ymAdjustMenuPosition(menuElement);
-    }
+    },
   }
 };
 
