@@ -209,7 +209,8 @@ const HighlightMixin = {
       this.ymRemoveMenu();
       const menu = this.ymConfig.menus.highlight;
       const actions = menu.actions;
-      this.hlHighlightMenu = this.ymCreateMenu(menu.component, actions);
+      const props = menu.props;
+      this.hlHighlightMenu = this.ymCreateMenu(menu.component, actions, props);
       const menuElement = this.hlHighlightMenu.$el;
       const lastNode = nodes.slice(-1).pop();
       lastNode.parentElement.appendChild(menuElement);
@@ -219,13 +220,14 @@ const HighlightMixin = {
       this.ymRemoveMenu();
       const menu = this.ymConfig.menus.selection;
       const actions = menu.actions;
+      const props = menu.props;
       // Add a range by the end of the selection
       const { node, offset } = getLatestNode(selection);
       const range = new Range();
       range.setStart(node, offset);
       range.setEnd(node, offset);
       this.hlMenuHookParent = node.parentElement;
-      this.hlSelectionMenu = this.ymCreateMenu(menu.component, actions);
+      this.hlSelectionMenu = this.ymCreateMenu(menu.component, actions, props);
       const menuElement = this.hlSelectionMenu.$el;
       range.insertNode(this.hlSelectionMenu.$el);
       this.ymAdjustMenuPosition(menuElement);
