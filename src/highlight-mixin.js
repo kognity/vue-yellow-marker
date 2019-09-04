@@ -104,7 +104,7 @@ const HighlightMixin = {
     },
     // Highlights text and specifies a click handler
     ymHighlight(
-      { prefix, suffix, exact },
+      { prefix, suffix, exact, location_hint },
       clickHandler,
       props,
       customObject = {}
@@ -117,11 +117,15 @@ const HighlightMixin = {
       if (!exact) {
         return;
       }
+      const options = {};
+      if (location_hint) {
+        options.hint = location_hint;
+      }
       const range = toRange(this.$el, {
         prefix,
         suffix,
-        exact
-      });
+        exact,
+      }, options);
       return highlight(
         this.$el,
         customObject,
