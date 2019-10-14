@@ -48,7 +48,8 @@ const HighlightMixin = {
         highlight: {
           component: Highlight,
         }
-      }
+      },
+      finalSelection: null,
     };
   },
   mounted: function() {
@@ -151,7 +152,8 @@ const HighlightMixin = {
       );
     },
     ymGetSelectionTextQuote() {
-      const range = getSelectedRange();
+      const range = getSelectedRange(this.finalSelection);
+      
       if (range) {
         return fromRange(this.$el, range);
       }
@@ -219,6 +221,10 @@ const HighlightMixin = {
       const menu = this.ymConfig.menus.selection;
       const actions = menu.actions;
       const props = menu.props;
+      this.finalSelection = {
+        focusNode: selection.focusNode,
+        rangeAtZero: selection.getRangeAt(0),
+      };
       this.ymAddMenuToSelection(selection, menu.component, actions, props);
     },
     ymAddMenuToHighlight(nodes, component, actions = {}, props = {}) {
@@ -240,6 +246,9 @@ const HighlightMixin = {
       const menuElement = this.hlSelectionMenu.$el;
       range.insertNode(this.hlSelectionMenu.$el);
       this.ymAdjustMenuPosition(menuElement);
+    },
+    ymGetSelectedRange() {
+      return getSelectedRange(this.finalSelection);
     },
   }
 };
