@@ -153,7 +153,6 @@ const HighlightMixin = {
     },
     ymGetSelectionTextQuote() {
       const range = getSelectedRange(this.finalSelection);
-      
       if (range) {
         return fromRange(this.$el, range);
       }

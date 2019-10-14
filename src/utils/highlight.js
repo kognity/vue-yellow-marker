@@ -6,7 +6,6 @@ export function getSelectedRange(selection) {
     return null;
   }
   const range = selection.rangeAtZero;
-  
   if (!range ) {
     return null;
   }
