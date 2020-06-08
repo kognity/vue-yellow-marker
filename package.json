@@ -1,6 +1,6 @@
 {
   "name": "@kognity/vue-yellow-marker",
-  "version": "2.6.7",
+  "version": "2.7.0",
   "description": "Adds a text selection and highlighting functionality to your Vue components",
   "main": "./dist/vue-yellow-marker.umd.min.js",
   "scripts": {
@@ -38,9 +38,9 @@
     "sass": "^1.16.0",
     "sass-loader": "^7.0.1",
     "vue": "^2.6.6",
-    "@vue/cli-plugin-babel": "^3.8.0",
-    "@vue/cli-plugin-eslint": "^3.8.0",
-    "@vue/cli-service": "^3.8.0",
+    "@vue/cli-plugin-babel": "^4.4.1",
+    "@vue/cli-plugin-eslint": "^4.4.1",
+    "@vue/cli-service": "^4.4.1",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
