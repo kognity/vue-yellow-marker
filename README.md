@@ -1,3 +1,6 @@
+**Warning! This project is not maintained any more.**
+Be aware that it has security issues in some dependencies. They can be fixed by updating dependecies versions.
+
 # Vue Yellow Marker
 Adds a text selection and highlighting functionality to your VUE components.
 
